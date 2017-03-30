@@ -10,9 +10,46 @@
 'use strict'
 
 const test = require('mukla')
-const rollupPluginPosthtml = require('./index')
+const posthtml = require('./index')
 
-test('rollup-plugin-posthtml', (done) => {
-  rollupPluginPosthtml()
+const rollup = require('rollup')
+const elements = require('posthtml-custom-elements')
+
+test('should main export return an object with transform() fn', (done) => {
+  const plugin = posthtml()
+
+  test.strictEqual(plugin.name, 'posthtml')
+  test.strictEqual(typeof plugin.transform, 'function')
   done()
+})
+
+test('should transform return `null` if `id` not match to filter', (done) => {
+  const plugin = posthtml({
+    include: 'foo.js'
+  })
+  const result = plugin.transform('foo bar', 'bar.js')
+
+  test.strictEqual(result, null, 'should `result` of transform() be null')
+  done()
+})
+
+test('should work as real plugin to rollup', (done) => {
+  const promise = rollup.rollup({
+    entry: 'fixtures/main.js',
+    plugins: [
+      posthtml({
+        plugins: [elements()]
+      })
+    ]
+  })
+
+  return promise.then((bundle) => {
+    const result = bundle.generate({ format: 'iife' })
+
+    test.strictEqual(/var foo = "<div/.test(result.code), true)
+    test.strictEqual(/class=\\"component\\"/.test(result.code), true)
+    test.strictEqual(/class=\\"text\\"/.test(result.code), true)
+    test.strictEqual(/console\.log\(foo\)/.test(result.code), true)
+    done()
+  }, done).catch(done)
 })
