@@ -92,7 +92,9 @@
       "once",
       "standard-version",
       "verb",
-      "verb-generate-readme"
+      "verb-generate-readme",
+      "posthtml",
+      "rollup"
     ]
   },
   "nyc": {

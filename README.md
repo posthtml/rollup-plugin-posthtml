@@ -58,6 +58,7 @@ with :heart: at [Sofia, Bulgaria][bulgaria-url] 🇧🇬.
 - [Install](#install)
 - [Usage](#usage)
 - [API](#api)
+  * [rollupPluginPosthtml](#rolluppluginposthtml)
 - [Related](#related)
 - [Contributing](#contributing)
 - [Building docs](#building-docs)
@@ -88,6 +89,33 @@ const rollupPluginPosthtml = require('rollup-plugin-posthtml')
 ```
 
 ## API
+
+### [rollupPluginPosthtml](index.js#L45)
+> A [posthtml] plugin for [rollup][]. The `options` are passed directly to PostHTML's `.process` method, so you can even parse a different parser and etc. You also can give `options.include` and `options.exclude` as usual for any Rollup plugin. The `options.plugins` option is passed to PostHTML directly.
+
+**Params**
+
+* `options` **{Object}**: optional, passed directly to posthtml    
+* `returns` **{Object}**: a Rollup plugin  
+
+**Example**
+
+```js
+import posthtml from 'rollup-plugin-posthtml'
+
+import sugarml from 'posthtml-sugarml'
+import customElements from 'posthtml-custom-elements'
+
+export default {
+  entry: 'foo/bar/main.js',
+  plugins: [
+    posthtml({
+      parser: sugarml(),
+      plugins: customElements()
+    })
+  ]
+}
+```
 
 ## Related
 - [dush-router](https://www.npmjs.com/package/dush-router): A simple regex-based router for `dush`, `base`, `minibase` and anything based on them. Works on Browser and Node.js | [homepage](https://github.com/tunnckocore/dush-router#readme "A simple regex-based router for `dush`, `base`, `minibase` and anything based on them. Works on Browser and Node.js")
@@ -151,6 +179,8 @@ _Project scaffolded using [charlike][] cli._
 [commitizen]: https://github.com/commitizen/cz-cli
 [dezalgo]: https://github.com/npm/dezalgo
 [once]: https://github.com/isaacs/once
+[posthtml]: https://github.com/posthtml/posthtml
+[rollup]: https://github.com/rollup/rollup
 [standard-version]: https://github.com/conventional-changelog/standard-version
 [verb-generate-readme]: https://github.com/verbose/verb-generate-readme
 [verb]: https://github.com/verbose/verb
