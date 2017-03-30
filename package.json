@@ -68,15 +68,32 @@
     ],
     "related": {
       "list": [
-        "always-done",
         "minibase",
-        "try-catch-core"
+        "dush",
+        "dush-tap-report",
+        "dush-router",
+        "posthtml",
+        "posthtml-custom-elements",
+        "posthtml-parser",
+        "sugarml"
       ],
       "highlight": "posthtml"
     },
     "lint": {
       "reflinks": true
-    }
+    },
+    "reflinks": [
+      "always-done",
+      "async-done",
+      "base",
+      "charlike",
+      "commitizen",
+      "dezalgo",
+      "once",
+      "standard-version",
+      "verb",
+      "verb-generate-readme"
+    ]
   },
   "nyc": {
     "check-coverage": true,
