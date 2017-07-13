@@ -31,7 +31,7 @@
     "nyc": "^11.0.0",
     "posthtml-custom-elements": "^1.0.3",
     "pre-commit": "^1.2.2",
-    "rollup": "^0.42.0",
+    "rollup": "^0.45.2",
     "standard": "^10.0.1",
     "standard-version": "^4.0.0"
   },
