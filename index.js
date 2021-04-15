@@ -54,7 +54,7 @@ module.exports = function rollupPluginPosthtml (options) {
     name: 'posthtml',
     transform: (code, id) => (
       filter(id)
-        ? posthtml(options.plugins).process(code, options).then(handle)
+        ? posthtml(options.plugins).process(code, {...options, rollupResourceId: id}).then(handle)
         : null
     )
   }
