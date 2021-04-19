@@ -9,11 +9,13 @@
 
 'use strict'
 
+const path = require('path')
 const test = require('mukla')
 const posthtml = require('./index')
 
 const rollup = require('rollup')
 const elements = require('posthtml-custom-elements')
+const samplePlugin = require('./fixtures/samplePlugin')
 
 test('should main export return an object with transform() fn', (done) => {
   const plugin = posthtml()
@@ -50,6 +52,27 @@ test('should work as real plugin to rollup', (done) => {
     test.strictEqual(/class=\\"component\\"/.test(result.code), true)
     test.strictEqual(/class=\\"text\\"/.test(result.code), true)
     test.strictEqual(/console\.log\(foo\)/.test(result.code), true)
+    done()
+  }, done).catch(done)
+})
+
+test('should pass resource id', (done) => {
+  const data = {
+    resourceId: null
+  }
+  const promise = rollup.rollup({
+    entry: 'fixtures/main.js',
+    plugins: [
+      posthtml({
+        plugins: [samplePlugin(data)]
+      })
+    ]
+  })
+
+  return promise.then((bundle) => {
+    const resolvedPath = path.resolve('./fixtures/foo.html')
+    test.strictEqual(data.resourceId, resolvedPath, 'passed rollup resource id should be equal with resolved')
+
     done()
   }, done).catch(done)
 })
