@@ -59,6 +59,7 @@ with :heart: at [Sofia, Bulgaria][bulgaria-url] 🇧🇬.
 - [Usage](#usage)
 - [API](#api)
   * [rollupPluginPosthtml](#rolluppluginposthtml)
+  * [File emission](#file-emission)
 - [Related](#related)
 - [Contributing](#contributing)
 - [Building docs](#building-docs)
@@ -112,6 +113,34 @@ export default {
     posthtml({
       parser: sugarml(),
       plugins: customElements()
+    })
+  ]
+}
+```
+
+### File emission
+
+By default, processed code will be emitted as an ES module. In a such way, it will be wrapped with `export default` and provide a string when being imported. Usually it is expected behavior.
+However, you may have a need to get an unwrapped result, for example, to pass it to another Rollup plugin. In this case you can simply disable `emitFile` option.
+Let's have a look at the chaining PostHTML with a template compiler plugin:
+
+```js
+import dot from 'rollup-plugin-dot'
+import htmlnano from 'htmlnano'
+
+export default {
+  entry: 'foo/bar/main.js',
+  plugins: [
+    posthtml({
+      emitFile: false,
+      plugins: [
+         htmlnano()
+      ]
+    }),
+    dot({
+       templateSettings: {
+         strip: false
+       }
     })
   ]
 }
