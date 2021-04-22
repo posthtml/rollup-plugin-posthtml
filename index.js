@@ -44,11 +44,14 @@ const utils = require('rollup-pluginutils')
 
 module.exports = function rollupPluginPosthtml (options) {
   options = Object.assign({
+    emitFile: true,
     include: '**/*.html'
   }, options)
 
   const filter = utils.createFilter(options.include, options.exclude)
-  const handle = (res) => `export default ${JSON.stringify(res.html.trim())}`
+  const handle = options.emitFile
+    ? (res) => `export default ${JSON.stringify(res.html.trim())}`
+    : (res) => res.html
 
   return {
     name: 'posthtml',

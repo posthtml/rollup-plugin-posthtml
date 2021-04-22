@@ -30,6 +30,7 @@
     "npm-run-all": "^4.0.1",
     "nyc": "^11.0.0",
     "posthtml-custom-elements": "^1.0.3",
+    "posthtml-minifier": "^0.1.0",
     "pre-commit": "^1.2.2",
     "rollup": "^0.42.0",
     "standard": "^10.0.1",
